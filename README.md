@@ -12,13 +12,13 @@ App has three main entities: users, categories and transactions. For each main e
 
 ## Current  version of API supports
 
--register user
--login user
--update user
--add category for user
--edit category for user
--delete category, and all transactions for it
--add transaction for category
--edit transaction
--delete transaction
+*register user
+*login user
+*update user
+*add category for user
+*edit category for user
+*delete category, and all transactions for it
+*add transaction for category
+*edit transaction
+*delete transaction
 
