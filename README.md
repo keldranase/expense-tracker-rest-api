@@ -11,14 +11,14 @@ All data is stored in PostgreSQL, in three tables: users, categories and transac
 App has three main entities: users, categories and transactions. For each main entity there are Resource, Service and Repository classes. Resource class represents and handles all endpoints for it's entity. Repository handles operations on database - check, insert, delete, update. Service class is somewhere in between of these two, and it servse as additional abstraction level between endpoints and databases. It reduces coupling, so we can modify and extend the software more easily.
 
 ## Current  version of API supports
-
-*register user
-*login user
-*update user
-*add category for user
-*edit category for user
-*delete category, and all transactions for it
-*add transaction for category
-*edit transaction
-*delete transaction
+ 
+* register user
+* login user
+* update user
+* add category for user
+* edit category for user
+* delete category, and all transactions for it
+* add transaction for category
+* edit transaction
+* delete transaction
 
