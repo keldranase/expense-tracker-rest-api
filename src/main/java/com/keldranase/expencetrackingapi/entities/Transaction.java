@@ -1,5 +1,8 @@
 package com.keldranase.expencetrackingapi.entities;
 
+/**
+ * Transaction is a single expense. Transactions are grouped in categories
+ */
 public class Transaction {
 
     private Integer transactionId;

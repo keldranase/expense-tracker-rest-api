@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.regex.Pattern;
 
+/**
+ * Additional layer of abstraction for better extensibility
+ * Performs intermediate checks on data
+ */
 @Service
 @Transactional // provides transactional behaviour
 public class SimpleUserService implements IUserService {

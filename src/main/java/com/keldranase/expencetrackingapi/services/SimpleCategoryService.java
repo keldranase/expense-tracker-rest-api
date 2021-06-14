@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Additional layer of abstraction, for better extensibility
+ */
 @Service
 @Transactional
 public class SimpleCategoryService implements ICategoryService {

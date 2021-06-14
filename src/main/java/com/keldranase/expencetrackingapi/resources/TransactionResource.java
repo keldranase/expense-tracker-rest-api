@@ -2,7 +2,6 @@ package com.keldranase.expencetrackingapi.resources;
 
 import com.keldranase.expencetrackingapi.entities.Transaction;
 import com.keldranase.expencetrackingapi.services.ITransactionService;
-import com.keldranase.expencetrackingapi.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Provides endpoints for interactions with Transactions data
+ */
 @RestController
 @RequestMapping("/api/categories/{categoryId}/transactions")
 public class TransactionResource {
@@ -20,6 +22,12 @@ public class TransactionResource {
     @Autowired
     ITransactionService transactionService;
 
+    /**
+     * Add transaction for given category of given user
+     * @param request JWT user token
+     * @param categoryId id of category
+     * @param map transaction data
+     */
     @PostMapping("")
     public ResponseEntity<Transaction> addTransaction(HttpServletRequest request,
                                                       @PathVariable("categoryId") Integer categoryId,
@@ -35,6 +43,13 @@ public class TransactionResource {
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
     }
 
+    /**
+     * Change existing transaction (update existing with new)
+     * @param request JWT for user
+     * @param categoryId id of category of transaction
+     * @param transactionId id of transaction, that has to be changed
+     * @param transaction data for transaction-replacement
+     */
     @PutMapping("/{transactionId}")
     public ResponseEntity<Map<String, Boolean>> updateTransaction(HttpServletRequest request,
                                                                   @PathVariable("categoryId") Integer categoryId,
@@ -47,6 +62,11 @@ public class TransactionResource {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    /**
+     * Get all transactions for particular category of given user
+     * @param request JWT token of user
+     * @param categoryId id of transaction category
+     */
     @GetMapping("")
     public ResponseEntity<List<Transaction>> getAllTransactions(HttpServletRequest request,
                                                                 @PathVariable("categoryId") Integer categoryId) {
@@ -55,6 +75,12 @@ public class TransactionResource {
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
+    /**
+     * Delete a single transaction for a given user
+     * @param request JWT user token
+     * @param categoryId id of category
+     * @param transactionId id of transaction to be deleted
+     */
     @DeleteMapping("/{transactionId}")
     public ResponseEntity<Map<String, Boolean>> deleteTransaction(HttpServletRequest request,
                                                                   @PathVariable("categoryId") Integer categoryId,

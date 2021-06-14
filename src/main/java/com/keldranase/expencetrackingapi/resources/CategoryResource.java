@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Endpoints for interacting with categories
+ * Provides endpoints for interactions with Categories data
  */
 @RestController
 @RequestMapping("/api/categories")
@@ -22,6 +22,10 @@ public class CategoryResource {
     @Autowired
     ICategoryService categoryService;
 
+    /**
+     * Get all categories for given user
+     * @param request JWT user token
+     */
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories(HttpServletRequest request) {
 
@@ -31,6 +35,11 @@ public class CategoryResource {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
+    /**
+     * Get category for given user by global category id
+     * @param request JWT user token
+     * @param categoryId global id of category
+     */
     @GetMapping("/{categoryId}")
     public ResponseEntity<Category> getCategoryById(HttpServletRequest request,
                                                     @PathVariable("categoryId") Integer categoryId) {
@@ -41,6 +50,11 @@ public class CategoryResource {
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
+    /**
+     * Add new category for user
+     * @param request JWT user token
+     * @param categoryMap category title and description in form of Json
+     */
     @PostMapping("")
     public ResponseEntity<Category> addCategory(HttpServletRequest request,
                                                 @RequestBody Map<String, Object> categoryMap) {
@@ -54,6 +68,12 @@ public class CategoryResource {
         return new ResponseEntity<>(category, HttpStatus.CREATED);
     }
 
+    /**
+     * Edit existing category (replace title and description)
+     * @param request JWT user token
+     * @param categoryId global id of category
+     * @param category edit date (new title and description)
+     */
     @PutMapping("/{categoryId}")
     public ResponseEntity<Map<String, Boolean>> updateCategory(HttpServletRequest request,
                                                               @PathVariable("categoryId") Integer categoryId,
@@ -66,6 +86,11 @@ public class CategoryResource {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * Delete category, WITH ALL IT'S TRANSACTIONS
+     * @param request JWT user token
+     * @param categoryId id of category to delete
+     */
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<Map<String, Boolean>> deleteCategory(HttpServletRequest request,
                                                                @PathVariable("categoryId") Integer categoryId) {

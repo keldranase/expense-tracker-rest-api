@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 /**
- * The thing, that connects postgresql db part of categories with application
+ * PostgreSQL data access level for User
  */
 @Repository
 public class PostgresUserRepository implements IUserRepository {
@@ -26,9 +26,6 @@ public class PostgresUserRepository implements IUserRepository {
     private static final String SQL_FIND_BY_ID = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD FROM ET_USERS WHERE USER_ID = ?";
     private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD FROM ET_USERS WHERE EMAIL = ?";
     private static final String SQL_UPDATE_USER = "UPDATE ET_USERS SET FIRST_NAME = ?, LAST_NAME = ? WHERE USER_ID = ?";
-
-//    private static final String SQL_UPDATE = "UPDATE ET_CATEGORIES SET TITLE = ?, DESCRIPTION = ? " +
-//            "WHERE USER_ID = ? AND CATEGORY_ID = ?";
 
     @Autowired
     JdbcTemplate jdbcTemplate;

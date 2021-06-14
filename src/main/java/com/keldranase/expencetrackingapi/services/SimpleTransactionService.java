@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Intermediate level, for better extensibility
+ */
 @Service
 @Transactional
 public class SimpleTransactionService implements ITransactionService {

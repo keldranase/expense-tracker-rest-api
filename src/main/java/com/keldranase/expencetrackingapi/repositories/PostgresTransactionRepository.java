@@ -14,6 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+/**
+ * PostgreSQL data access level for Transactions
+ */
 @Repository
 public class PostgresTransactionRepository implements ITransactionRepository {
 

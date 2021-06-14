@@ -16,7 +16,7 @@ import java.sql.Statement;
 import java.util.List;
 
 /**
- * The thing, that connects database part of categories with application
+ * PostgreSQL data access level for Categories
  */
 @Repository
 public class PostgresCategoryRepository implements ICategoryRepository {
@@ -47,6 +47,8 @@ public class PostgresCategoryRepository implements ICategoryRepository {
 
     @Override
     public Category findById(Integer userId, Integer categoryId) throws EtResourceNotFoundException {
+
+        // todo: call to deprecated method. CHANGE!
         try {
             return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new Object[]{userId, categoryId}, categoryRowMapper);
         } catch (Exception e) {
@@ -55,6 +57,7 @@ public class PostgresCategoryRepository implements ICategoryRepository {
     }
 
     private RowMapper<Category> categoryRowMapper = ((rs, rowNum) -> {
+
         return new Category(rs.getInt("CATEGORY_ID"),
                 rs.getInt("USER_ID"),
                 rs.getString("TITLE"),
@@ -64,6 +67,7 @@ public class PostgresCategoryRepository implements ICategoryRepository {
 
     @Override
     public Integer create(Integer userId, String title, String description) throws EtBadRequestException {
+
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder(); // use keyholder to get primary key
             jdbcTemplate.update(connection -> {
@@ -92,11 +96,13 @@ public class PostgresCategoryRepository implements ICategoryRepository {
 
     @Override
     public void removeById(Integer userId, Integer categoryId) {
+
         removeAllCatTransactions(categoryId);
         jdbcTemplate.update(SQL_DELETE_CATEGORY, new Object[]{userId, categoryId});
     }
 
     private void removeAllCatTransactions(Integer categoryId) {
+
         jdbcTemplate.update(SQL_DELETE_ALL_TRANSACTIONS, new Object[]{categoryId});
     }
 }

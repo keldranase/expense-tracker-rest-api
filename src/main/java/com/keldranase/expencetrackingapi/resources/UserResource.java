@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Endpoints for interactions with users
+ * Provides endpoints for interactions with users data
  */
 @RestController
 @RequestMapping("/api/users")
@@ -26,6 +26,11 @@ public class UserResource {
     @Autowired
     IUserService userService;
 
+    /**
+     * User login
+     * @param userMap email and password in form of Json
+     * @return JWT user token, if successful
+     */
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> loginUser(@RequestBody Map<String, Object> userMap) {
 
@@ -37,6 +42,11 @@ public class UserResource {
         return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
     }
 
+    /**
+     * Register user
+     * @param userMap firstName, lastName, email and password of user in form of Json
+     * @return JWT user token, if successful
+     */
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
 
@@ -61,10 +71,10 @@ public class UserResource {
 
         User updateUser = new User(userId, firstName, lastName, email, password);
         userService.updateUser(userId, updateUser);
-        // todo: make good response
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    // generate JWT token, from userId and names, that's gonna expire after TOKEN_VALIDITY time (2h default)
     private Map<String, String> generateJWTToken(User user) {
 
         long timestamp = System.currentTimeMillis();
