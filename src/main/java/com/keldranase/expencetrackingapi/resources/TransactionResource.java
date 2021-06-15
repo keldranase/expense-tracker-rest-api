@@ -67,12 +67,32 @@ public class TransactionResource {
      * @param request JWT token of user
      * @param categoryId id of transaction category
      */
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<Transaction>> getAllTransactions(HttpServletRequest request,
                                                                 @PathVariable("categoryId") Integer categoryId) {
         int userId = (Integer) request.getAttribute("userId");
         List<Transaction> transactions = transactionService.fetchAllTransactions(userId, categoryId);
         return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
+
+    @GetMapping("/mean")
+    public ResponseEntity<Double> getMeanTransactionValue(HttpServletRequest request,
+                                                                @PathVariable("categoryId") Integer categoryId) {
+
+        int userId = (Integer) request.getAttribute("userId");
+        Double meanTransactionValue = transactionService.getMean(userId, categoryId);
+
+        return new ResponseEntity<>(meanTransactionValue, HttpStatus.OK);
+    }
+
+    @GetMapping("/total")
+    public ResponseEntity<Double> getTotalValueOfAllTransactions(HttpServletRequest request,
+                                                          @PathVariable("categoryId") Integer categoryId) {
+
+        int userId = (Integer) request.getAttribute("userId");
+        Double totalValue = transactionService.getTotal(userId, categoryId);
+
+        return new ResponseEntity<>(totalValue, HttpStatus.OK);
     }
 
     /**

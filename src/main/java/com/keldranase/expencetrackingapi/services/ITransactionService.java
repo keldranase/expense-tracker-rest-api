@@ -21,4 +21,8 @@ public interface ITransactionService {
 
     void removeTransaction(Integer userId, Integer categoryId, Integer transactionId)
         throws EtResourceNotFoundException;
+
+    Double getTotal(Integer userId, Integer categoryId);
+
+    Double getMean(Integer userId, Integer categoryId);
 }

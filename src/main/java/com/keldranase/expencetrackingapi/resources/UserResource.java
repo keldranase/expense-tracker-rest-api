@@ -44,16 +44,16 @@ public class UserResource {
 
     /**
      * Register user
-     * @param userMap firstName, lastName, email and password of user in form of Json
+     * @param userData firstName, lastName, email and password of user in form of Json
      * @return JWT user token, if successful
      */
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
+    public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userData) {
 
-        String firstName = (String) userMap.get("firstName");
-        String lastName = (String) userMap.get("lastName");
-        String email = (String) userMap.get("email");
-        String password = (String) userMap.get("password");
+        String firstName = (String) userData.get("firstName");
+        String lastName = (String) userData.get("lastName");
+        String email = (String) userData.get("email");
+        String password = (String) userData.get("password");
 
         User user = userService.registerUser(firstName, lastName, email, password);
 

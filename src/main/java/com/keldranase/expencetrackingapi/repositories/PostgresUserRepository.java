@@ -27,6 +27,7 @@ public class PostgresUserRepository implements IUserRepository {
     private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD FROM ET_USERS WHERE EMAIL = ?";
     private static final String SQL_UPDATE_USER = "UPDATE ET_USERS SET FIRST_NAME = ?, LAST_NAME = ? WHERE USER_ID = ?";
 
+    //
     @Autowired
     JdbcTemplate jdbcTemplate;
 

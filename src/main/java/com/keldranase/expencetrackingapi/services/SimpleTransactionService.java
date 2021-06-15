@@ -45,4 +45,29 @@ public class SimpleTransactionService implements ITransactionService {
     public void removeTransaction(Integer userId, Integer categoryId, Integer transactionId) throws EtResourceNotFoundException {
         repository.remove(userId, categoryId, transactionId);
     }
+
+    @Override
+    public Double getTotal(Integer userId, Integer categoryId) {
+
+        return getTransactionsSum(fetchAllTransactions(userId, categoryId));
+    }
+
+    @Override
+    public Double getMean(Integer userId, Integer categoryId) {
+
+        List<Transaction> transactions = fetchAllTransactions(userId, categoryId);
+        Double sum = getTransactionsSum(transactions);
+
+        return sum / transactions.size();
+    }
+
+    private Double getTransactionsSum(List<Transaction> transactions) {
+        Double sum = 0.0;
+
+        for (Transaction transaction : transactions) {
+            sum += transaction.getAmount();
+        }
+
+        return sum;
+    }
 }
