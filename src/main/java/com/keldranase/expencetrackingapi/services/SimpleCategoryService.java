@@ -35,12 +35,16 @@ public class SimpleCategoryService implements ICategoryService {
     @Override
     public Category addCategory(Integer userId, String title, String description) throws EtBadRequestException {
 
+        if (categoryRepository.isPresent(userId, title)) {
+            throw new EtBadRequestException("There is already a category with same title for this user");
+        }
         int categoryId = categoryRepository.create(userId, title, description);
         return categoryRepository.findById(userId, categoryId);
     }
 
     @Override
     public void updateCategory(Integer userId, Integer categoryId, Category category) throws EtBadRequestException {
+
         categoryRepository.update(userId, categoryId, category);
     }
 

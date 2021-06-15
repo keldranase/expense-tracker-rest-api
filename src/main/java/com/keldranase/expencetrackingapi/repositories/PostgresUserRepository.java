@@ -3,6 +3,7 @@ package com.keldranase.expencetrackingapi.repositories;
 import com.keldranase.expencetrackingapi.entities.User;
 import com.keldranase.expencetrackingapi.exceptions.EtAuthException;
 import com.keldranase.expencetrackingapi.exceptions.EtBadRequestException;
+import jdk.jshell.spi.ExecutionControl;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -27,7 +28,6 @@ public class PostgresUserRepository implements IUserRepository {
     private static final String SQL_FIND_BY_EMAIL = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD FROM ET_USERS WHERE EMAIL = ?";
     private static final String SQL_UPDATE_USER = "UPDATE ET_USERS SET FIRST_NAME = ?, LAST_NAME = ? WHERE USER_ID = ?";
 
-    //
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -90,12 +90,12 @@ public class PostgresUserRepository implements IUserRepository {
     });
 
     @Override
-    public void updateUser(Integer userId, User updateUser) {
+    public User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel) {
         try {
-            jdbcTemplate.update(SQL_UPDATE_USER, updateUser.getFirstName(), updateUser.getLastName(), userId);
+            int a= jdbcTemplate.update(SQL_UPDATE_USER, new Object[]{firstName, lastName, email, password, privilegeLevel}, userRowMapper);
         } catch (DataAccessException e) {
             throw new EtBadRequestException("Cant update user" + e.getMessage());
         }
+        return null;
     }
-
 }

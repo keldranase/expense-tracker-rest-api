@@ -3,7 +3,6 @@ package com.keldranase.expencetrackingapi.repositories;
 import com.keldranase.expencetrackingapi.entities.Category;
 import com.keldranase.expencetrackingapi.exceptions.EtBadRequestException;
 import com.keldranase.expencetrackingapi.exceptions.EtResourceNotFoundException;
-import org.apache.tomcat.util.security.PrivilegedGetTccl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -35,6 +34,7 @@ public class PostgresCategoryRepository implements ICategoryRepository {
             "WHERE USER_ID = ? AND CATEGORY_ID = ?";
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM ET_CATEGORIES WHERE USER_ID = ? AND CATEGORY_ID = ?";
     private static final String SQL_DELETE_ALL_TRANSACTIONS = "DELETE FROM ET_TRANSACTIONS WHERE CATEGORY_ID = ?";
+    private static final String SQL_CATEGORY_COUNT = "SELECT COUNT(*) FROM ET_CATEGORIES WHERE USER_ID = ? AND TITLE = ?";
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -54,6 +54,14 @@ public class PostgresCategoryRepository implements ICategoryRepository {
         } catch (Exception e) {
             throw new EtResourceNotFoundException("Cant find category");
         }
+    }
+
+    @Override
+    public boolean isPresent(Integer userId, String categoryTitle) {
+
+        Integer count = jdbcTemplate.queryForObject(SQL_CATEGORY_COUNT, new Object[]{userId, categoryTitle}, Integer.class);
+
+        return count == null || count == 1;
     }
 
     private RowMapper<Category> categoryRowMapper = ((rs, rowNum) -> {

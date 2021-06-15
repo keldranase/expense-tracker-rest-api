@@ -34,6 +34,7 @@ public class AuthFilter extends GenericFilterBean {
                     // after this, userId is gonna be attached to request object
                     // so we can access userId through our code
                     request.setAttribute("userId", Integer.parseInt(claims.get("userId").toString()));
+                    request.setAttribute("privilegeLevel", claims.get("privilegeLevel"));
                 } catch(Exception e) {
                     response.sendError(HttpStatus.FORBIDDEN.value(), "Invalid/expired token");
                     return;
@@ -43,7 +44,7 @@ public class AuthFilter extends GenericFilterBean {
                 return;
             }
         } else {
-            response.sendError(HttpStatus.FORBIDDEN.value(), "Need auth token");
+            response.sendError(HttpStatus.FORBIDDEN.value(), "Please provide auth token");
             return;
         }
 

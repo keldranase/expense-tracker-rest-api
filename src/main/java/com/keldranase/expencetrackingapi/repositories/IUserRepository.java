@@ -15,5 +15,5 @@ public interface IUserRepository {
 
     User findById(Integer userID);
 
-    void updateUser(Integer userId, User updateUser);
+    User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel);
 }

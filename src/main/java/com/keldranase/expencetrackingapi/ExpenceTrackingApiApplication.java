@@ -22,6 +22,7 @@ public class ExpenceTrackingApiApplication {
 		// all points, for managing categories must be protected
 		// so, any URL, starting with /api/categories must be protected
 		registrationBean.addUrlPatterns("/api/categories/*");
+		registrationBean.addUrlPatterns("/api/users/update");
 
 		return registrationBean;
 	}

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.security.auth.message.AuthException;
 import java.util.regex.Pattern;
 
 /**
@@ -45,8 +44,9 @@ public class SimpleUserService implements IUserService {
     }
 
     @Override
-    public void updateUser(Integer userId, User userUpdate) {
-        userRepository.updateUser(userId, userUpdate);
+    public User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel) {
+
+        return userRepository.updateUser(userId, firstName, lastName, email, password, privilegeLevel);
     }
 
     private boolean isValidEmail(String email) {

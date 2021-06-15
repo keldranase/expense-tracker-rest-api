@@ -48,13 +48,11 @@ public class SimpleTransactionService implements ITransactionService {
 
     @Override
     public Double getTotal(Integer userId, Integer categoryId) {
-
         return getTransactionsSum(fetchAllTransactions(userId, categoryId));
     }
 
     @Override
     public Double getMean(Integer userId, Integer categoryId) {
-
         List<Transaction> transactions = fetchAllTransactions(userId, categoryId);
         Double sum = getTransactionsSum(transactions);
 

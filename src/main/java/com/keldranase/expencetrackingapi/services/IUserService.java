@@ -9,5 +9,5 @@ public interface IUserService {
 
     User registerUser(String firstName, String lastName, String email, String password) throws EtAuthException;
 
-    void updateUser(Integer userId, User userUpdate);
+    User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel);
 }

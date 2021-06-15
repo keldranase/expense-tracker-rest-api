@@ -12,6 +12,8 @@ public interface ICategoryRepository {
 
     Category findById(Integer userId, Integer categoryId) throws EtResourceNotFoundException;
 
+    boolean isPresent(Integer userId, String categoryTitle);
+
     Integer create(Integer userId, String title, String description) throws EtBadRequestException;
 
     void update(Integer userId, Integer categoryId, Category category) throws EtBadRequestException;
