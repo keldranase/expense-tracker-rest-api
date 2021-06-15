@@ -2,8 +2,6 @@
 
 Small REST API, made for the practice sake. Each user, registered in application can have multiple categories of expenses (shopping, entartainment, ...). Each category can have multiple transactions, associated with it.
 
-I'm not happy with it. Names could use more work, and I think I can simplify some get logic.
-
 ## Data Storage
 
 Data is stored via PostgreSQL, in three tables: users, categories and transactions. It's possible to painlessly switch database, because it's hidden behind interface.
@@ -27,4 +25,10 @@ Resource class represents and handles all endpoints for it's entity. Repository 
 * edit transaction
 * get all transactions for given category
 * delete transaction
+
+## Future
+
+There are a lot of flaws in basic structure, but it's fine for playground. This is the list of things, I want to change in similar projects in future:
+* use word-like identifiers in url requests instead of numerical (/api/categories/{categoryId})
+* 
 
