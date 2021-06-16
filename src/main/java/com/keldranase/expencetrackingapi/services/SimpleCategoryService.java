@@ -21,6 +21,7 @@ public class SimpleCategoryService implements ICategoryService {
 
     @Autowired
     public SimpleCategoryService(ICategoryRepository categoryRepository) {
+
         this.categoryRepository = categoryRepository;
     }
 
@@ -42,6 +43,15 @@ public class SimpleCategoryService implements ICategoryService {
         if (categoryRepository.isPresent(userId, title)) {
             throw new EtBadRequestException("There is already a category with same title for this user");
         }
+
+        if (title.length() > 16) {
+            throw new EtBadRequestException("Title length must be 16 or less");
+        }
+
+        if (description.length() > 64) {
+            throw new EtBadRequestException("Description length must be 64 or less");
+        }
+
         int categoryId = categoryRepository.create(userId, title, description);
         return categoryRepository.findById(userId, categoryId);
     }
