@@ -55,6 +55,7 @@ public class TransactionResource {
                                                                   @PathVariable("categoryId") Integer categoryId,
                                                                   @PathVariable("transactionId") Integer transactionId,
                                                                   @RequestBody Transaction transaction) {
+
         int userId = (Integer) request.getAttribute("userId");
         transactionService.updateTransaction(userId, categoryId, transactionId, transaction);
         Map<String, Boolean> map = new HashMap<>();
@@ -70,6 +71,7 @@ public class TransactionResource {
     @GetMapping("/all")
     public ResponseEntity<List<Transaction>> getAllTransactions(HttpServletRequest request,
                                                                 @PathVariable("categoryId") Integer categoryId) {
+
         int userId = (Integer) request.getAttribute("userId");
         List<Transaction> transactions = transactionService.fetchAllTransactions(userId, categoryId);
         return new ResponseEntity<>(transactions, HttpStatus.OK);
@@ -105,6 +107,7 @@ public class TransactionResource {
     public ResponseEntity<Map<String, Boolean>> deleteTransaction(HttpServletRequest request,
                                                                   @PathVariable("categoryId") Integer categoryId,
                                                                   @PathVariable("transactionId") Integer transactionId) {
+
         int userId = (Integer) request.getAttribute("userId");
         transactionService.removeTransaction(userId, categoryId, transactionId);
         Map<String, Boolean> map = new HashMap<>();

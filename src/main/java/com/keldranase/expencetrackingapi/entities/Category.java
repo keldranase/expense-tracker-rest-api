@@ -2,7 +2,6 @@ package com.keldranase.expencetrackingapi.entities;
 
 /**
  * This entity represents a group of expenses for given user
- *
  */
 public class Category {
 

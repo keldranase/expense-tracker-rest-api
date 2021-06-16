@@ -60,7 +60,7 @@ public class CategoryResource {
     public ResponseEntity<Category> addCategory(HttpServletRequest request,
                                                 @RequestBody Map<String, Object> categoryMap) {
 
-        int userId = JWTUtils.getUserIdFromToken(request);
+        int userId = JWTUtils.getUserIdFromRequest(request);
         String title = (String) categoryMap.get("title");
         String description = (String) categoryMap.get("description");
         Category category = categoryService.addCategory(userId, title, description);
@@ -79,7 +79,7 @@ public class CategoryResource {
                                                               @PathVariable("categoryId") Integer categoryId,
                                                               @RequestBody Category category) {
 
-        int userId = JWTUtils.getUserIdFromToken(request);
+        int userId = JWTUtils.getUserIdFromRequest(request);
         categoryService.updateCategory(userId, categoryId, category);
         Map<String, Boolean> response = new HashMap<>();
         response.put("success", true);
@@ -94,7 +94,8 @@ public class CategoryResource {
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<Map<String, Boolean>> deleteCategory(HttpServletRequest request,
                                                                @PathVariable("categoryId") Integer categoryId) {
-        int userId = JWTUtils.getUserIdFromToken(request);
+
+        int userId = JWTUtils.getUserIdFromRequest(request);
         categoryService.removeCategoryWithAllTransactions(userId, categoryId);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);

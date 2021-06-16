@@ -31,11 +31,13 @@ public class PostgresTransactionRepository implements ITransactionRepository {
 
     @Override
     public List<Transaction> findAll(Integer userId, Integer categoryId) {
+
         return template.query(SQL_FIND_ALL, new Object[]{userId, categoryId}, rowMapper);
     }
 
     @Override
     public Transaction findById(Integer userId, Integer categoryId, Integer transactionId) throws EtResourceNotFoundException {
+
         try {
             return template.queryForObject(SQL_FIND_BY_ID, new Object[]{userId, categoryId, transactionId}, rowMapper);
         } catch (Exception e) {
@@ -54,6 +56,7 @@ public class PostgresTransactionRepository implements ITransactionRepository {
 
     @Override
     public Integer create(Integer userId, Integer categoryId, Double amount, String note, Long date) throws EtBadRequestException {
+
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             template.update(connection -> {
@@ -73,9 +76,12 @@ public class PostgresTransactionRepository implements ITransactionRepository {
     }
 
     @Override
-    public void update(Integer userId, Integer categoryId, Integer transactionId, Transaction transaction) throws EtBadRequestException {
+    public void update(Integer userId, Integer categoryId, Integer transactionId, Transaction transaction)
+            throws EtBadRequestException {
+
         try {
-            template.update(SQL_UPDATE, transaction.getAmount(), transaction.getNote(), transaction.getTransactionDate(), userId, categoryId, transactionId);
+            template.update(SQL_UPDATE, transaction.getAmount(), transaction.getNote(),
+                    transaction.getTransactionDate(), userId, categoryId, transactionId);
         }catch (Exception e) {
             throw new EtBadRequestException("Invalid request" + e.getMessage());
         }
@@ -83,6 +89,7 @@ public class PostgresTransactionRepository implements ITransactionRepository {
 
     @Override
     public void remove(Integer userId, Integer categoryId, Integer transactionId) throws EtResourceNotFoundException {
+
         int count = template.update(SQL_DELETE, new Object[]{userId, categoryId, transactionId});
         if(count == 0)
             throw new EtResourceNotFoundException("Transaction not found");

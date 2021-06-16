@@ -22,6 +22,7 @@ public class SimpleUserService implements IUserService {
 
     @Override
     public User validateUser(String email, String password) throws EtAuthException {
+
         if (email != null) {
             email = email.toLowerCase();
         }
@@ -31,13 +32,12 @@ public class SimpleUserService implements IUserService {
     @Override
     public User registerUser(String firstName, String lastName, String email, String password) throws EtAuthException {
 
-        if (!isValidEmail(email)) {
-            throw new EtAuthException("Invalid email format");
-        }
+        validateEmail(email);
+        validatePassword(password);
+
         if (userRepository.isPresent(email)) {
             throw new EtAuthException("Email already in user");
         }
-        validatePassword(password);
 
         Integer userId = userRepository.create(firstName, lastName, email, password);
         return userRepository.findById(userId);
@@ -49,15 +49,16 @@ public class SimpleUserService implements IUserService {
         return userRepository.updateUser(userId, firstName, lastName, email, password, privilegeLevel);
     }
 
-    private boolean isValidEmail(String email) {
-        if (email == null) {
-            return false;
-        }
+    private void validateEmail(String email) {
+
         Pattern pattern = Pattern.compile("^(.+)@(.+)$");
-        return pattern.matcher(email).matches();
+        if (email == null || !pattern.matcher(email).matches()) {
+            throw new EtAuthException("Invalid email format");
+        }
     }
 
     private void validatePassword(String password) {
+
          if (password.length() < 4) {
              throw new EtAuthException("Password must contain more then 4 characters");
          }
@@ -75,6 +76,7 @@ public class SimpleUserService implements IUserService {
                  containsUpperCaseChar = true;
              }
          }
+
          if (!containsNumber || !containsLowerCaseChar || !containsUpperCaseChar) {
              throw new EtAuthException("Password must contain at least 1 number, 1 lowercase and 1 uppercase letter");
          }

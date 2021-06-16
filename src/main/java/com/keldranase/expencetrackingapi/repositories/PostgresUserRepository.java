@@ -33,6 +33,7 @@ public class PostgresUserRepository implements IUserRepository {
 
     @Override
     public Integer create(String firstName, String lastName, String email, String password) throws EtAuthException {
+
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -53,6 +54,7 @@ public class PostgresUserRepository implements IUserRepository {
 
     @Override
     public User findByEmailAndPassword(String email, String password) throws EtAuthException {
+
         try {
             User user = jdbcTemplate.queryForObject(SQL_FIND_BY_EMAIL, new Object[]{email}, userRowMapper);
             if (!BCrypt.checkpw(password, user.getPassword())) {
@@ -66,16 +68,19 @@ public class PostgresUserRepository implements IUserRepository {
 
     @Override
     public Integer getCountByEmail(String email) {
+
         return jdbcTemplate.queryForObject(SQL_COUNT_BY_EMAIL, new Object[]{email}, Integer.class);
     }
 
     @Override
     public boolean isPresent(String email) {
+
         return getCountByEmail(email) > 0;
     }
 
     @Override
     public User findById(Integer userId) {
+
         return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new Object[]{userId}, userRowMapper);
     }
 
@@ -91,6 +96,7 @@ public class PostgresUserRepository implements IUserRepository {
 
     @Override
     public User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel) {
+
         try {
             int a= jdbcTemplate.update(SQL_UPDATE_USER, new Object[]{firstName, lastName, email, password, privilegeLevel}, userRowMapper);
         } catch (DataAccessException e) {

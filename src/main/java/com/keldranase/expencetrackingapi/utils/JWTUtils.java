@@ -27,7 +27,13 @@ public class JWTUtils {
         return token;
     }
 
-    public static int getUserIdFromToken(HttpServletRequest request) {
+    public static int getUserIdFromRequest(HttpServletRequest request) {
+
         return (Integer) request.getAttribute("userId");
+    }
+
+    public static User.PrivilegeLevel getPrivilegeLevelFromRequest(HttpServletRequest request) {
+
+        return (User.PrivilegeLevel) request.getAttribute("privilegeLevel");
     }
 }
