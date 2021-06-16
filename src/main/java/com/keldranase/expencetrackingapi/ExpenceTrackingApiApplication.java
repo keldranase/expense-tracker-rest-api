@@ -1,12 +1,10 @@
 package com.keldranase.expencetrackingapi;
 
-import com.keldranase.expencetrackingapi.filter.AuthFilter;
+import com.keldranase.expencetrackingapi.filters.AuthFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-
-import javax.servlet.FilterRegistration;
 
 @SpringBootApplication
 public class ExpenceTrackingApiApplication {

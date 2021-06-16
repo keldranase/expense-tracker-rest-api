@@ -55,7 +55,4 @@ class ExpenceTrackingApiApplicationTests {
 		Assertions.assertThrows(EtAuthException.class, () -> userService.registerUser("Alex", "Klepov", "hello@email.com", "1aab"));
 		Assertions.assertDoesNotThrow(() -> userService.registerUser("Alex", "Klepov", "hello@email.com", "1Aab"));
 	}
-
-
-
 }

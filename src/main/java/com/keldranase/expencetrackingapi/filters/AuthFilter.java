@@ -1,4 +1,4 @@
-package com.keldranase.expencetrackingapi.filter;
+package com.keldranase.expencetrackingapi.filters;
 
 import com.keldranase.expencetrackingapi.Constants;
 import io.jsonwebtoken.Claims;

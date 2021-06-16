@@ -1,11 +1,8 @@
-package com.keldranase.expencetrackingapi.resources;
+package com.keldranase.expencetrackingapi.controllers;
 
-import com.keldranase.expencetrackingapi.Constants;
 import com.keldranase.expencetrackingapi.entities.User;
 import com.keldranase.expencetrackingapi.services.IUserService;
 import com.keldranase.expencetrackingapi.utils.JWTUtils;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 //import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,12 +18,12 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/users")
-public class UserResource {
+public class UserController {
 
     IUserService userService;
 
     @Autowired
-    public UserResource(IUserService userService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 

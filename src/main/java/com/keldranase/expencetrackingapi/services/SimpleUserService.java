@@ -38,6 +38,8 @@ public class SimpleUserService implements IUserService {
 
         validateEmail(email);
         validatePassword(password);
+        validateName(firstName);
+        validateName(lastName);
 
         if (userRepository.isPresent(email)) {
             throw new EtAuthException("Email already in user");
@@ -53,6 +55,12 @@ public class SimpleUserService implements IUserService {
         return userRepository.updateUser(userId, firstName, lastName, email, password, privilegeLevel);
     }
 
+    private void validateName(String name) {
+        if (name.length() < 1) {
+            throw new EtAuthException("Name must contain at least 1 character");
+        }
+    }
+
     private void validateEmail(String email) {
 
         Pattern pattern = Pattern.compile("^(.+)@(.+)$");
@@ -66,9 +74,11 @@ public class SimpleUserService implements IUserService {
          if (password.length() < 4) {
              throw new EtAuthException("Password must contain more then 4 characters");
          }
+
          boolean containsNumber = false;
          boolean containsLowerCaseChar = false;
          boolean containsUpperCaseChar = false;
+
          for (char ch : password.toCharArray()) {
              if (Character.isDigit(ch)) {
                  containsNumber = true;

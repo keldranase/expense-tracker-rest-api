@@ -1,4 +1,4 @@
-package com.keldranase.expencetrackingapi.resources;
+package com.keldranase.expencetrackingapi.controllers;
 
 import com.keldranase.expencetrackingapi.entities.Transaction;
 import com.keldranase.expencetrackingapi.services.ITransactionService;
@@ -17,12 +17,12 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/categories/{categoryId}/transactions")
-public class TransactionResource {
+public class TransactionController {
 
     ITransactionService transactionService;
 
     @Autowired
-    public TransactionResource(ITransactionService transactionService) {
+    public TransactionController(ITransactionService transactionService) {
         this.transactionService = transactionService;
     }
 

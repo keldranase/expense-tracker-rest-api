@@ -44,8 +44,8 @@ public class SimpleCategoryService implements ICategoryService {
             throw new EtBadRequestException("There is already a category with same title for this user");
         }
 
-        if (title.length() > 16) {
-            throw new EtBadRequestException("Title length must be 16 or less");
+        if (title.length() > 16 || title.length() < 1) {
+            throw new EtBadRequestException("Title length must contain more than 0 and less than 17 characters");
         }
 
         if (description.length() > 64) {
