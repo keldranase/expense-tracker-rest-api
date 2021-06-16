@@ -19,8 +19,12 @@ import java.util.Map;
 @RequestMapping("/api/categories/{categoryId}/transactions")
 public class TransactionResource {
 
-    @Autowired
     ITransactionService transactionService;
+
+    @Autowired
+    public TransactionResource(ITransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     /**
      * Add transaction for given category of given user

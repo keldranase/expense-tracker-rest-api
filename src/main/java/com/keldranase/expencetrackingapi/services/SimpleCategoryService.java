@@ -17,8 +17,12 @@ import java.util.List;
 @Transactional
 public class SimpleCategoryService implements ICategoryService {
 
-    @Autowired
     ICategoryRepository categoryRepository;
+
+    @Autowired
+    public SimpleCategoryService(ICategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public List<Category> fetchAllCategories(Integer userId) {

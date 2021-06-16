@@ -24,8 +24,12 @@ import java.util.Map;
 @RequestMapping("/api/users")
 public class UserResource {
 
-    @Autowired
     IUserService userService;
+
+    @Autowired
+    public UserResource(IUserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Register user

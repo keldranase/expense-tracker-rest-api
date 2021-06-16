@@ -20,8 +20,12 @@ import java.util.Map;
 @RequestMapping("/api/categories")
 public class CategoryResource {
 
-    @Autowired
     ICategoryService categoryService;
+
+    @Autowired
+    public CategoryResource(ICategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     /**
      * Get all categories for given user

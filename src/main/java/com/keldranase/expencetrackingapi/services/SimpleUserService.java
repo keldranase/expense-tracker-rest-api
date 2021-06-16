@@ -17,8 +17,12 @@ import java.util.regex.Pattern;
 @Transactional // provides transactional behaviour
 public class SimpleUserService implements IUserService {
 
-    @Autowired
     private IUserRepository userRepository;
+
+    @Autowired
+    public SimpleUserService(IUserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User validateUser(String email, String password) throws EtAuthException {

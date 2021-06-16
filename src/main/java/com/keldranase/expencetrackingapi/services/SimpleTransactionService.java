@@ -3,6 +3,7 @@ package com.keldranase.expencetrackingapi.services;
 import com.keldranase.expencetrackingapi.entities.Transaction;
 import com.keldranase.expencetrackingapi.exceptions.EtBadRequestException;
 import com.keldranase.expencetrackingapi.exceptions.EtResourceNotFoundException;
+import com.keldranase.expencetrackingapi.repositories.ITransactionRepository;
 import com.keldranase.expencetrackingapi.repositories.PostgresTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,12 @@ import java.util.List;
 @Transactional
 public class SimpleTransactionService implements ITransactionService {
 
+    ITransactionRepository repository;
+
     @Autowired
-    PostgresTransactionRepository repository;
+    public SimpleTransactionService(ITransactionRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<Transaction> fetchAllTransactions(Integer userId, Integer categoryId) {
