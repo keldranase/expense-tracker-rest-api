@@ -1,6 +1,5 @@
 package com.keldranase.expencetrackingapi.services;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.keldranase.expencetrackingapi.entities.Category;
 import com.keldranase.expencetrackingapi.exceptions.EtBadRequestException;
 import com.keldranase.expencetrackingapi.exceptions.EtResourceNotFoundException;
@@ -61,6 +60,9 @@ public class CategoryServiceTest extends Assertions {
 
         String longTitle = "tittle length more than 16 symbols";
         assertThrows(EtBadRequestException.class, () -> categoryService.addCategory(1, longTitle, "desc"));
+        assertThrows(EtBadRequestException.class, () -> categoryService.addCategory(1, "", "desc"));
+        assertThrows(EtBadRequestException.class, () -> categoryService.addCategory(1, null, "desc"));
+
     }
 
     @Test
@@ -68,11 +70,13 @@ public class CategoryServiceTest extends Assertions {
 
         String longDesc = "description length more than 64 characters description length more than 64 characters";
         assertThrows(EtBadRequestException.class, () -> categoryService.addCategory(1, longDesc, "desc"));
+        assertThrows(EtBadRequestException.class, () -> categoryService.addCategory(1, longDesc, "desc"));
     }
 
     @Test
     public void shouldAddIfNotPresentAndValidName() {
 
+        // todo: I feel like it's bad test design. Redo.
         Category expected = new Category(1, 1, "valid", "desc", 0.0);
         Category real = null;
         try {

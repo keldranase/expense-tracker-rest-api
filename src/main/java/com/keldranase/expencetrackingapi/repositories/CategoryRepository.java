@@ -18,7 +18,7 @@ import java.util.List;
  * PostgreSQL data access level for Categories
  */
 @Repository
-public class PostgresCategoryRepository implements ICategoryRepository {
+public class CategoryRepository implements ICategoryRepository {
 
     private static final String SQL_FIND_ALL = "SELECT C.CATEGORY_ID, C.USER_ID, C.TITLE, C.DESCRIPTION, " +
             "COALESCE(SUM(T.AMOUNT), 0) TOTAL_EXPENSE " +

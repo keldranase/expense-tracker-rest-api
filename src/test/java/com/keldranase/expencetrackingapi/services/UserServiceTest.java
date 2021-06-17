@@ -3,18 +3,13 @@ package com.keldranase.expencetrackingapi.services;
 import com.keldranase.expencetrackingapi.entities.User;
 import com.keldranase.expencetrackingapi.exceptions.EtAuthException;
 import com.keldranase.expencetrackingapi.repositories.IUserRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.annotation.Testable;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.*;
 
-@ExtendWith(SpringExtension.class)
+//@SpringBootTest
 public class UserServiceTest {
 
+
+    // todo: proper mocking with mockito or something
     IUserRepository userRepository = new IUserRepository() {
         @Override
         public Integer create(String firstName, String lastName, String email, String password) throws EtAuthException {
@@ -46,8 +41,8 @@ public class UserServiceTest {
             return null;
         }
     };
-
     IUserService userService = new SimpleUserService(userRepository);
+
 
     @Test
     public void shouldRegisterIfEmailAndPasswordValid() {
@@ -61,20 +56,25 @@ public class UserServiceTest {
 
         Assertions.assertThrows(EtAuthException.class, () ->
                 userService.registerUser("a", "b", "invalid", "1Abc"));
+        Assertions.assertThrows(EtAuthException.class, () ->
+                userService.registerUser("a", "b", "@.com", "1Abc"));
+        Assertions.assertThrows(EtAuthException.class, () ->
+                userService.registerUser("a", "b", ".@.com", "1Abc"));
+        Assertions.assertThrows(EtAuthException.class, () ->
+                userService.registerUser("a", "b", "inv@com@email", "1Abc"));
     }
 
     @Test
     public void shouldNotRegisterIfPasswordInvalid() {
 
+        // password should contain at least 1 digit and 1 upper and 1 lowercase characters
         Assertions.assertThrows(EtAuthException.class, () ->
                 userService.registerUser("a", "b", "valid@gmail.com", "123"));
-    }
-
-    //@Test
-    public void registerUserTest() {
-
-        // test if fails with invalid email
-        // test if fails with invalid password
-        // test if passes with valid email and password
+        Assertions.assertThrows(EtAuthException.class, () ->
+                userService.registerUser("a", "b", "valid@gmail.com", "aAbAsd"));
+        Assertions.assertThrows(EtAuthException.class, () ->
+                userService.registerUser("a", "b", "valid@gmail.com", "12334343"));
+        Assertions.assertThrows(EtAuthException.class, () ->
+                userService.registerUser("a", "b", "valid@gmail.com", "123aaa"));
     }
 }

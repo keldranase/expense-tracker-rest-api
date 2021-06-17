@@ -20,7 +20,7 @@ import java.sql.Statement;
  * PostgreSQL data access level for User
  */
 @Repository
-public class PostgresUserRepository implements IUserRepository {
+public class UserRepository implements IUserRepository {
 
     private static final String SQL_CREATE = "INSERT INTO ET_USERS(USER_ID, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD) VALUES(NEXTVAL('ET_USERS_SEQ'), ?, ?, ?, ?)";
     private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM ET_USERS WHERE EMAIL = ?";
