@@ -1,8 +1,10 @@
-package com.keldranase.expencetrackingapi.services;
+package com.keldranase.expencetrackingapi.unit;
 
 import com.keldranase.expencetrackingapi.entities.User;
 import com.keldranase.expencetrackingapi.exceptions.EtAuthException;
 import com.keldranase.expencetrackingapi.repositories.IUserRepository;
+import com.keldranase.expencetrackingapi.services.IUserService;
+import com.keldranase.expencetrackingapi.services.SimpleUserService;
 import org.junit.jupiter.api.*;
 
 //@SpringBootTest

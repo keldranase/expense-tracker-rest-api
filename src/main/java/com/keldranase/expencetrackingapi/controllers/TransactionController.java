@@ -2,6 +2,7 @@ package com.keldranase.expencetrackingapi.controllers;
 
 import com.keldranase.expencetrackingapi.entities.Transaction;
 import com.keldranase.expencetrackingapi.services.ITransactionService;
+import com.keldranase.expencetrackingapi.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class TransactionController {
                                                       @PathVariable("categoryId") Integer categoryId,
                                                       @RequestBody Map<String, Object> map) {
 
-        int userId = (Integer) request.getAttribute("userId");
+        int userId = JWTUtils.getUserIdFromRequest(request);
         Double amount = Double.valueOf(map.get("amount").toString());
         String note = (String) map.get("note");
         Long date = (Long) map.get("transactionDate");
@@ -60,7 +61,7 @@ public class TransactionController {
                                                                   @PathVariable("transactionId") Integer transactionId,
                                                                   @RequestBody Transaction transaction) {
 
-        int userId = (Integer) request.getAttribute("userId");
+        int userId = JWTUtils.getUserIdFromRequest(request);
         transactionService.updateTransaction(userId, categoryId, transactionId, transaction);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
@@ -76,7 +77,7 @@ public class TransactionController {
     public ResponseEntity<List<Transaction>> getAllTransactions(HttpServletRequest request,
                                                                 @PathVariable("categoryId") Integer categoryId) {
 
-        int userId = (Integer) request.getAttribute("userId");
+        int userId = JWTUtils.getUserIdFromRequest(request);
         List<Transaction> transactions = transactionService.fetchAllTransactions(userId, categoryId);
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
@@ -85,7 +86,7 @@ public class TransactionController {
     public ResponseEntity<Double> getMeanTransactionValue(HttpServletRequest request,
                                                                 @PathVariable("categoryId") Integer categoryId) {
 
-        int userId = (Integer) request.getAttribute("userId");
+        int userId = JWTUtils.getUserIdFromRequest(request);
         Double meanTransactionValue = transactionService.getMean(userId, categoryId);
 
         return new ResponseEntity<>(meanTransactionValue, HttpStatus.OK);
@@ -95,7 +96,7 @@ public class TransactionController {
     public ResponseEntity<Double> getTotalValueOfAllTransactions(HttpServletRequest request,
                                                           @PathVariable("categoryId") Integer categoryId) {
 
-        int userId = (Integer) request.getAttribute("userId");
+        int userId = JWTUtils.getUserIdFromRequest(request);
         Double totalValue = transactionService.getTotal(userId, categoryId);
 
         return new ResponseEntity<>(totalValue, HttpStatus.OK);
@@ -112,7 +113,7 @@ public class TransactionController {
                                                                   @PathVariable("categoryId") Integer categoryId,
                                                                   @PathVariable("transactionId") Integer transactionId) {
 
-        int userId = (Integer) request.getAttribute("userId");
+        int userId = JWTUtils.getUserIdFromRequest(request);
         transactionService.removeTransaction(userId, categoryId, transactionId);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);

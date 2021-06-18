@@ -1,9 +1,11 @@
-package com.keldranase.expencetrackingapi.services;
+package com.keldranase.expencetrackingapi.unit;
 
 import com.keldranase.expencetrackingapi.entities.Category;
 import com.keldranase.expencetrackingapi.exceptions.EtBadRequestException;
 import com.keldranase.expencetrackingapi.exceptions.EtResourceNotFoundException;
 import com.keldranase.expencetrackingapi.repositories.ICategoryRepository;
+import com.keldranase.expencetrackingapi.services.ICategoryService;
+import com.keldranase.expencetrackingapi.services.SimpleCategoryService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

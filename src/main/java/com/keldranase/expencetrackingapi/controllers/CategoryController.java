@@ -34,7 +34,7 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories(HttpServletRequest request) {
 
-        int userId = (Integer) request.getAttribute("userId"); // todo: change hardcore to enum or something
+        int userId = JWTUtils.getUserIdFromRequest(request);
         List<Category> categories = categoryService.fetchAllCategories(userId);
 
         return new ResponseEntity<>(categories, HttpStatus.OK);
@@ -49,7 +49,7 @@ public class CategoryController {
     public ResponseEntity<Category> getCategoryById(HttpServletRequest request,
                                                     @PathVariable("categoryId") Integer categoryId) {
 
-        int userId = (Integer) request.getAttribute("userId");
+        int userId = JWTUtils.getUserIdFromRequest(request);
         Category category = categoryService.fetchCategoryById(userId, categoryId);
 
         return new ResponseEntity<>(category, HttpStatus.OK);
