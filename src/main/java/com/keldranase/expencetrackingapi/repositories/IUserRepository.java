@@ -2,6 +2,7 @@ package com.keldranase.expencetrackingapi.repositories;
 
 import com.keldranase.expencetrackingapi.entities.User;
 import com.keldranase.expencetrackingapi.exceptions.EtAuthException;
+import jdk.jshell.spi.ExecutionControl;
 
 public interface IUserRepository {
 
@@ -15,5 +16,5 @@ public interface IUserRepository {
 
     User findById(Integer userID);
 
-    User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel);
+    User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel) throws ExecutionControl.NotImplementedException;
 }

@@ -1,9 +1,9 @@
 package com.keldranase.expencetrackingapi.controllers;
 
 import com.keldranase.expencetrackingapi.entities.User;
+import com.keldranase.expencetrackingapi.filters.AuthFilter;
 import com.keldranase.expencetrackingapi.services.IUserService;
 import com.keldranase.expencetrackingapi.utils.JWTUtils;
-//import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +67,11 @@ public class UserController {
         return new ResponseEntity<>(mapToken, HttpStatus.OK);
     }
 
+    public void Test() {
+       AuthFilter at;
+
+    }
+
     @PutMapping("/update")
     public ResponseEntity<Map<String, String>> updateUser(HttpServletRequest request, @RequestBody Map<String, Object> newUser) {
 
@@ -75,7 +80,7 @@ public class UserController {
         String lastName = (String) newUser.get("lastName");
         String email = (String) newUser.get("email");
         String password = (String) newUser.get("password");
-        User.PrivilegeLevel privilegeLevel = null;
+        User.PrivilegeLevel privilegeLevel = User.PrivilegeLevel.USER_FREE;
 
         User updatedUser = userService.updateUser(userId, firstName, lastName, email, password, privilegeLevel);
         String token = JWTUtils.getUserJWTToken(updatedUser);

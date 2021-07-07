@@ -95,13 +95,8 @@ public class UserRepository implements IUserRepository {
     });
 
     @Override
-    public User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel) {
+    public User updateUser(Integer userId, String firstName, String lastName, String email, String password, User.PrivilegeLevel privilegeLevel) throws ExecutionControl.NotImplementedException {
 
-        try {
-            int a= jdbcTemplate.update(SQL_UPDATE_USER, new Object[]{firstName, lastName, email, password, privilegeLevel}, userRowMapper);
-        } catch (DataAccessException e) {
-            throw new EtBadRequestException("Cant update user" + e.getMessage());
-        }
-        return null;
+        throw new ExecutionControl.NotImplementedException("Method update user still has to be implemented");
     }
 }
